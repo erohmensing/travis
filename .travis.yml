@@ -4,6 +4,8 @@ jobs:
     - stage: deploy
       if: tag IS present
       name: "Deploy!"
+      script: skip
+      install: skip
       deploy:
         provider: script
         on:
