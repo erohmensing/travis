@@ -1,0 +1,10 @@
+jobs:
+  include:
+    - stage: deploy
+      if: tag IS present
+      name: "Deploy!"
+      deploy:
+        provider: script
+        on:
+          tags: true
+        script: echo "DEPLOYING NOW"
