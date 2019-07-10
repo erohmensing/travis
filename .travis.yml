@@ -1,13 +1,20 @@
-dist: xenial
 jobs:
   include:
-    - stage: deploy
-      if: tag IS present
-      name: "Deploy!"
-      script: skip
-      install: skip
-      deploy:
-        provider: script
-        on:
-          tags: true
-        script: echo "DEPLOYING NOW"
+  - stage: test
+    name: "Code Formatting"
+    python: 3.6
+    before_script:
+    - pip install black==19.3b0
+    script:
+    - black --check src
+  - stage: deploy
+    name: "Deploy"
+    python: 3.6
+    install: pip install pipdate
+    script: pip install requests
+    deploy:
+      skip_cleanup: true
+      provider: script
+      script: 
+      - pip show pipdate
+      - pip show requests
